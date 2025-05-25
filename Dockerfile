@@ -28,6 +28,6 @@ ENV ConnectionStrings__DefaultConnection="Server=database;Database=SaaSDB;User I
 
 # Expose port (change if your app uses a different port)
 EXPOSE 80
-
+EXPOSE 1433
 # Set environment variables if needed
 # ENV ASPNETCORE_ENVIRONMENT=Production
