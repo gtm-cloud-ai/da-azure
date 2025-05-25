@@ -15,7 +15,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Build database image
-FROM mcr.microsoft.com/mssql/rhel/server:latest AS saas_db
+FROM mcr.microsoft.com/mssql/rhel/server:latest
 ENV ACCEPT_EULA=Y
 ENV MSSQL_SA_PASSWORD=mssql_2025
 ENV MSSQL_PID=Developer
