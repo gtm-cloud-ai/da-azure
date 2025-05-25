@@ -15,8 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag fthornton67/gtm-cloud/saasacceleratordb:$(date +%s)
+      run: docker build . --file Dockerfile --tag fthornton67/gtm-cloud/saasacceleratordb
     - name: Log in to container registry
       run:  docker login  -u fthornton67 -p ${{ secrets.docker_access_token }}
     - name: Push the Docker image
-      run: docker push fthornton67/gtm-cloud/saasacceleratordb:$(date +%s)
+      run: docker push fthornton67/gtm-cloud/saasacceleratordb
