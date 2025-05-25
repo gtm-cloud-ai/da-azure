@@ -17,7 +17,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     - name: Log in to container registry
-      run: echo $CLASSIC_TOKEN | docker login containers.HOSTNAME -u USERNAME --password-stdin
+      run:  docker login containers.HOSTNAME -u USERNAME -p ${{ secrets.CLASSIC_TOKEN }}
     - name: Push the Docker image
       run: docker push containers.HOSTNAME/my-image-name:$(date +%s)
   
