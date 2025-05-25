@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  database:
+    build:
+      context: ./src/DataAccess
+      target: database
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=1
+      - SA_PASSWORD=YourStrong@Passw0rd
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "YourStrong@Passw0rd" -Q "SELECT 1" -b -o /dev/null
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: ./src/DataAccess
+      target: runtime
+    ports:
+      - "80:80"
+    depends_on:
+      database:
+        condition: service_healthy
