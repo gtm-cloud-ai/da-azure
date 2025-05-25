@@ -15,7 +15,10 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Build database image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+FROM mcr.microsoft.com/mssql/rhel/server:latest AS saas_db
+ENV ACCEPT_EULA=Y
+ENV MSSQL_SA_PASSWORD=mssql_2025
+ENV MSSQL_PID=Developer
 WORKDIR /app
 COPY --from=build /app/out ./
 
@@ -28,5 +31,3 @@ EXPOSE 80
 
 # Set environment variables if needed
 # ENV ASPNETCORE_ENVIRONMENT=Production
-
-ENTRYPOINT ["dotnet", "DataAccess.dll"]
