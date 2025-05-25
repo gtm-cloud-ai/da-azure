@@ -19,4 +19,4 @@ jobs:
     - name: Log in to container registry
       run:  docker login  -u fthornton67 -p ${{ secrets.docker_access_token }}
     - name: Push the Docker image
-      run: docker push thornton67/gtm-cloud/saasacceleratordb:$(date +%s)
+      run: docker push fthornton67/gtm-cloud/saasacceleratordb:$(date +%s)
