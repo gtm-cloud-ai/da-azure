@@ -13,7 +13,7 @@ RUN dotnet restore
 # Copy the rest of the source code
 COPY . ./
 RUN dotnet publish -c Release -o out
-RUN dotnet ef migrations script --output-dir out 
+RUN dotnet ef migrations script > out/install.sql
 
 # Build database image
 FROM mcr.microsoft.com/mssql/rhel/server:latest
