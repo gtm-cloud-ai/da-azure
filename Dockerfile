@@ -31,3 +31,4 @@ EXPOSE 1433
 # Set environment variables if needed
 # ENV ASPNETCORE_ENVIRONMENT=Production
 
+ENTRYPOINT [ "/opt/mssql/bin/sqlservr" ]
