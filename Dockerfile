@@ -26,7 +26,8 @@ COPY --from=build /app/out ./dbfiles
 # Environment variables
 ENV ASPNETCORE_URLS=http://+:80
 ENV ConnectionStrings__DefaultConnection="Server=database;Database=SaaSDB;User Id=sa;Password=mssql_2025;TrustServerCertificate=True"
-
+RUN /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P mssql_2025 -i /app/scripts/create-database.sql
+RUN /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P mssql_2025 -i /app/dbfiles/install.sql
 # Expose port (change if your app uses a different port)
 EXPOSE 1433
 # Set environment variables if needed
