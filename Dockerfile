@@ -11,7 +11,7 @@ COPY *.csproj ./
 RUN dotnet restore
 
 # Copy the rest of the source code
-COPY ./scripts /app/out/scripts
+COPY ./scripts ./
 RUN dotnet publish -c Release -o out
 RUN dotnet ef migrations script > /app/out/install.sql
 
