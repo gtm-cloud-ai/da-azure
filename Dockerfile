@@ -26,10 +26,6 @@ COPY --from=build /app/out ./dbfiles
 # Environment variables
 ENV ASPNETCORE_URLS=http://+:80
 ENV ConnectionStrings__DefaultConnection="Server=database;Database=SaaSDB;User Id=sa;Password=mssql_2025;TrustServerCertificate=True"
-RUN chmod +x /opt/mssql-tools18/bin/sqlcmd
-
-COPY /opt/mssql-tools18/bin/sqlcmd /usr/bin/sqlcmd
-
 
 # Expose port (change if your app uses a different port)
 EXPOSE 1433
