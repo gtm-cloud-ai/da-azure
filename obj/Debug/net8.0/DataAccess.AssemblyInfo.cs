@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Microsoft")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+61eb9f641be18cc6911b72bf7230f63e93093975")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f10729d14322e81288cdb2876b1a9218f719beee")]
 [assembly: System.Reflection.AssemblyProductAttribute("Marketplace.SaaS.Accelerator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataAccess")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
