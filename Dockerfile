@@ -13,14 +13,17 @@ RUN dotnet restore
 # Copy the rest of the source code
 COPY . ./
 RUN dotnet publish -c Release -o out
-RUN dotnet ef migrations script > /app/out/install.sql
+RUN dotnet ef migrations script --output-dir out --idempotent --context SaaSContext
+
 
 # Build database image
 FROM mcr.microsoft.com/mssql/rhel/server:latest
-
+ENV ACCEPT_EULA=Y
+ENV MSSQL_SA_PASSWORD=mssql_2025
+ENV MSSQL_PID=Developer
 WORKDIR /app
 COPY --from=build /app/out ./dbfiles
- 
+
 # Environment variables
 ENV ASPNETCORE_URLS=http://+:80
 ENV ConnectionStrings__DefaultConnection="Server=database;Database=SaaSDB;User Id=sa;Password=mssql_2025;TrustServerCertificate=True"
