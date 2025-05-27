@@ -17,9 +17,7 @@ RUN dotnet ef migrations script > /app/out/install.sql
 
 # Build database image
 FROM mcr.microsoft.com/mssql/rhel/server:latest
-ENV ACCEPT_EULA=Y
-ENV MSSQL_SA_PASSWORD=mssql_2025
-ENV MSSQL_PID=Developer
+
 WORKDIR /app
 COPY --from=build /app/out ./dbfiles
  
