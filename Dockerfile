@@ -31,4 +31,17 @@ EXPOSE 1433
 # Set environment variables if needed
 # ENV ASPNETCORE_ENVIRONMENT=Production
 
-ENTRYPOINT [ "/opt/mssql/bin/sqlservr" ]
+# Copy the event logging script
+COPY docker-entrypoint-events.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint-events.sh
+
+# Create log directory
+RUN mkdir -p /var/log/mssql && \
+    chown mssql:mssql /var/log/mssql
+
+# Change entrypoint to our script
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint-events.sh"]
+
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=3s --start-period=15s --retries=3 \
+    CMD /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $MSSQL_SA_PASSWORD -Q "SELECT 1" || exit 1
