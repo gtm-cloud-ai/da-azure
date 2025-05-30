@@ -10,27 +10,30 @@ ENV PATH="${PATH}:/root/.dotnet/tools"
 COPY *.csproj ./
 RUN dotnet restore
 
-# Copy only what's needed for EF Core migrations
-COPY Entities/ ./Entities/
-COPY Context/ ./Context/
-COPY Migrations/ ./Migrations/
-RUN mkdir -p out && dotnet ef migrations script -o out/install.sql
+# Copy necessary files for DB migration
+COPY . ./
+RUN dotnet ef migrations script -o sql/install.sql
 
 # Build database image
 FROM mcr.microsoft.com/mssql/rhel/server:latest
+
+# SQL Server configuration
 ENV ACCEPT_EULA=Y
 ENV MSSQL_SA_PASSWORD=mssql_2025
 ENV MSSQL_PID=Developer
+
 WORKDIR /app
-COPY --from=build /app/out ./
 
-# Environment variables
-ENV ASPNETCORE_URLS=http://+:80
-ENV ConnectionStrings__DefaultConnection="Server=database;Database=SaaSDB;User Id=sa;Password=mssql_2025;TrustServerCertificate=True"
+# Copy SQL installation script and entrypoint
+COPY --from=build /app/sql/install.sql /app/sql/
+COPY entrypoint.sh /app/
+RUN chmod +x /app/entrypoint.sh
 
-# Expose port (change if your app uses a different port)
+# Expose SQL Server port
 EXPOSE 1433
-# Set environment variables if needed
-# ENV ASPNETCORE_ENVIRONMENT=Production
 
-ENTRYPOINT [ "/opt/mssql/bin/sqlservr" ]
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s \
+    CMD /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $MSSQL_SA_PASSWORD -Q "SELECT 1" || exit 1
+
+ENTRYPOINT ["/app/entrypoint.sh"]
