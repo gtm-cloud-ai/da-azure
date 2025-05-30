@@ -26,8 +26,7 @@ WORKDIR /app
 
 # Copy SQL installation script and entrypoint
 COPY --from=build /app/sql/install.sql /app/sql/
-COPY entrypoint.sh /app/
-RUN chmod +x /app/entrypoint.sh
+COPY --chmod=777 entrypoint.sh /app/
 
 # Expose SQL Server port
 EXPOSE 1433
