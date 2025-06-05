@@ -9,7 +9,7 @@ on:
 jobs:
   ef-commands:
     runs-on: ubuntu-latest
-    output:
+    outputs:
       sql: sql/install.sql
     steps:
      # Check out the repository
