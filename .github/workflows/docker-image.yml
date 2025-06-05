@@ -28,14 +28,10 @@ jobs:
       - name: Update Database
         run: |
             dotnet ef migrations script -o sql/install.sql
-            mkdir -p sql
-            dotnet ef migrations script -o sql/install.sql
-            
-            # Upload the SQL script as an artifact
-            - uses: actions/upload-artifact@v3
-            with:
-              name: sql-script
-              path: sql/install.sql
+      - uses: actions/upload-artifact@v3
+        with:
+          name: sql-script
+          path: sql/install.sql
 
   build:
     runs-on: ubuntu-latest
