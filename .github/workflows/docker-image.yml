@@ -28,7 +28,8 @@ jobs:
       - name: Update Database
         run: |
             dotnet ef migrations script -o sql/install.sql
-      - uses: actions/upload-artifact@v3
+      - name: Upload SQL Script
+        uses: actions/upload-artifact@v3
         with:
           name: sql-script
           path: sql/install.sql
