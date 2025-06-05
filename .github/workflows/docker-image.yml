@@ -10,6 +10,9 @@ jobs:
   ef-commands:
     runs-on: ubuntu-latest
     steps:
+     # Check out the repository
+      - uses: actions/checkout@v4
+      # Set up .NET SDK
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
