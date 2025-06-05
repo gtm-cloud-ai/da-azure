@@ -28,6 +28,13 @@ jobs:
       - name: Update Database
         run: |
             dotnet ef migrations script -o sql/install.sql
+      - name: Commit SQL Script
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add sql/install.sql
+          git commit -m "chore: update database migration script [skip ci]" || echo "No changes to commit"
+          git push
       - name: Upload SQL Script
         uses: actions/upload-artifact@v4
         with:
@@ -35,6 +42,7 @@ jobs:
           path: sql/install.sql
 
   build:
+    needs: ef-commands
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
