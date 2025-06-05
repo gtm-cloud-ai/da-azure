@@ -9,6 +9,8 @@ on:
 jobs:
   ef-commands:
     runs-on: ubuntu-latest
+    output:
+      sql: sql/install.sql
     steps:
      # Check out the repository
       - uses: actions/checkout@v4
