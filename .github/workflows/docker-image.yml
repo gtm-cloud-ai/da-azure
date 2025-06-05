@@ -22,8 +22,7 @@ jobs:
         run: dotnet restore
       - name: Run EF Commands
         run: |
-          dotnet ef migrations add InitialCreate --project GTM.Cloud.SaaS.Database --startup-project GTM.Cloud.SaaS.Web
-          dotnet ef database update --project GTM.Cloud.SaaS.Database --startup-project GTM.Cloud.SaaS.Web
+          dotnet ef migrations script -o sql/install.sql
 
   build:
     runs-on: ubuntu-latest
