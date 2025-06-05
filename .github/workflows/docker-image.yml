@@ -22,6 +22,7 @@ jobs:
         run: dotnet restore
       - name: Run EF Commands
         run: |
+          dotnet tool install --global dotnet-ef
           dotnet ef migrations script -o sql/install.sql
 
   build:
