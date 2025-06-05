@@ -9,11 +9,15 @@ on:
 jobs:
   ef-commands:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       sql: sql/install.sql
     steps:
      # Check out the repository
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       # Set up .NET SDK
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -28,13 +32,20 @@ jobs:
       - name: Update Database
         run: |
             dotnet ef migrations script -o sql/install.sql
-      - name: Commit SQL Script
+      - name: Setup GitHub CLI
         run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
-          git add sql/install.sql
-          git commit -m "chore: update database migration script [skip ci]" || echo "No changes to commit"
-          git push
+          type -p gh || (apt update && apt install gh)
+      - name: Commit SQL Script
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [[ -f sql/install.sql ]]; then
+            gh auth setup-git
+            git add sql/install.sql
+            git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update database migration script [skip ci]" && git push)
+          else
+            echo "No sql/install.sql file found"
+          fi
       - name: Upload SQL Script
         uses: actions/upload-artifact@v4
         with:
