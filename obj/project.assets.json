@@ -3755,11 +3755,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/fthornton/_dev/SAAS_GTM/Commercial-Marketplace-SaaS-Accelerator/src/DataAccess/DataAccess.csproj",
+      "projectUniqueName": "/Users/fthornton/_dev/SAAS_GTM/da-azure/DataAccess.csproj",
       "projectName": "DataAccess",
-      "projectPath": "/Users/fthornton/_dev/SAAS_GTM/Commercial-Marketplace-SaaS-Accelerator/src/DataAccess/DataAccess.csproj",
+      "projectPath": "/Users/fthornton/_dev/SAAS_GTM/da-azure/DataAccess.csproj",
       "packagesPath": "/Users/fthornton/.nuget/packages/",
-      "outputPath": "/Users/fthornton/_dev/SAAS_GTM/Commercial-Marketplace-SaaS-Accelerator/src/DataAccess/obj/",
+      "outputPath": "/Users/fthornton/_dev/SAAS_GTM/da-azure/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/fthornton/.nuget/NuGet/NuGet.Config"

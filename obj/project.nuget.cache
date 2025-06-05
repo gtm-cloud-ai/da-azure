@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vieYbd2oFd8=",
+  "dgSpecHash": "TFzsp3ZwOcg=",
   "success": true,
-  "projectFilePath": "/Users/fthornton/_dev/SAAS_GTM/Commercial-Marketplace-SaaS-Accelerator/src/DataAccess/DataAccess.csproj",
+  "projectFilePath": "/Users/fthornton/_dev/SAAS_GTM/da-azure/DataAccess.csproj",
   "expectedPackageFiles": [
     "/Users/fthornton/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/Users/fthornton/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",
