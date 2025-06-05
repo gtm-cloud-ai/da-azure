@@ -1,23 +1,27 @@
-- name: Setup EF Tools 
-  run: | 
-    dotnet tool install --global dotnet-ef 
-    dotnet tool restore 
+name: Docker Image CI
 
-- name: Docker Image CI
-  on:
-    push:
-      branches: [ "main" ]
-    pull_request:
-      branches: [ "main" ]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-- jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
+
+      - name: Setup EF Tools
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
+
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag fthornton67/gtm-cloud-saas-db:latest
+
       - name: Log in to container registry
-        run:  docker login  -u fthornton67 -p ${{ secrets.docker_access_token }}
+        run: docker login -u fthornton67 -p ${{ secrets.docker_access_token }}
+
       - name: Push the Docker image
-      run: docker push fthornton67/gtm-cloud-saas-db:latest
+        run: docker push fthornton67/gtm-cloud-saas-db:latest
