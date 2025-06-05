@@ -17,10 +17,13 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x' # Specify the required .NET version
-
       # Install dependencies
       - name: Install dependencies
         run: dotnet restore
+      - name: Run EF Commands
+        run: |
+          dotnet ef migrations add InitialCreate --project GTM.Cloud.SaaS.Database --startup-project GTM.Cloud.SaaS.Web
+          dotnet ef database update --project GTM.Cloud.SaaS.Database --startup-project GTM.Cloud.SaaS.Web
 
   build:
     runs-on: ubuntu-latest
