@@ -1,0 +1,68 @@
+# Keycloak Configuration Values
+service:
+  type: NodePort
+  nodePorts:
+    http: 30081
+
+auth:
+  adminUser: admin
+  adminPassword: admin123  # Change this in production
+  existingSecret: ""
+  passwordSecretKey: ""
+
+# Production mode settings
+production: false
+proxy: edge
+
+# Database settings
+postgresql:
+  enabled: true
+  auth:
+    username: bn_keycloak
+    password: keycloak_db_pwd
+    database: bitnami_keycloak
+
+# Resource limits
+resources:
+  limits:
+    memory: "1Gi"
+    cpu: "1000m"
+  requests:
+    memory: "512Mi"
+    cpu: "250m"
+
+# Ingress configuration
+ingress:
+  enabled: false
+
+# Metrics configuration
+metrics:
+  enabled: true
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9000"
+
+# Cache configuration
+cache:
+  enabled: true
+  stack: kubernetes
+
+# Logging configuration
+logging:
+  output: default
+  level: INFO
+
+# HTTP settings
+httpRelativePath: "/"
+
+# Pod configuration
+replicaCount: 1
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+
+containerSecurityContext:
+  enabled: true
+  runAsUser: 1001
+  runAsNonRoot: true
