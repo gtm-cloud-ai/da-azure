@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set variables
-REPO="SAAS_GTM/da-azure"
+REPO="gtm-cloud-ai/da-azure"
 WORKFLOW_ID="docker-image.yml"
 STATUS="all"  # can be completed, failure, success, etc.
 KEEP_MINIMUM=5  # minimum number of recent runs to keep
