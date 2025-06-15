@@ -21,7 +21,7 @@ COPY . ./
 RUN dotnet ef migrations script -o sql/install.sql
 
 # Final stage with Azure SQL Edge (ARM64 compatible)
-FROM mcr.microsoft.com/azure-sql-edge:latest
+FROM --platform=linux/arm64 mcr.microsoft.com/azure-sql-edge:latest
 
 # SQL Server configuration
 ENV ACCEPT_EULA=Y
