@@ -16,7 +16,9 @@ done
 
 # Run the installation script
 echo "Running database installation script..."
-/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P $MSSQL_SA_PASSWORD -d master -i /app/sql/install.sql
+/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P $MSSQL_SA_PASSWORD -d master -i /app/sql/create.sql
+/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P $MSSQL_SA_PASSWORD -d saasdb -i /app/sql/install.sql 
+echo "Complete database installation script..."
 
 # Keep container running
 tail -f /dev/null

@@ -19,13 +19,13 @@ FROM mcr.microsoft.com/mssql/rhel/server:latest
 
 # SQL Server configuration
 ENV ACCEPT_EULA=Y
-ENV MSSQL_SA_PASSWORD=mssql_2025
 ENV MSSQL_PID=Developer
 
 WORKDIR /app
 
 # Copy SQL installation script and entrypoint
 COPY --from=build /app/sql/install.sql /app/sql/
+COPY --from=build /app/sql/create.sql /app/sql/
 COPY --chmod=777 entrypoint.sh /app/
 
 # Expose SQL Server port
