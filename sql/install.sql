@@ -648,9 +648,9 @@ GO
 INSERT INTO ValueTypes
     (ValueType,CreateDate,HTMLType)
 VALUES 
-    ('Int','06/15/2025 13:16:56','int'),
-    ('String','06/15/2025 13:16:56','string'),
-    ('Date','06/15/2025 13:16:56','date')
+    ('Int','06/15/2025 13:25:52','int'),
+    ('String','06/15/2025 13:25:52','string'),
+    ('Date','06/15/2025 13:25:52','date')
 
 GO
 
@@ -661,9 +661,9 @@ GO
 INSERT INTO Events
 	(EventsName,IsActive,CreateDate)
 VALUES
-    ('Activate',1,'06/15/2025 13:16:56'),
-	('Unsubscribe',1,'06/15/2025 13:16:56'),
-	('Pending Activation',1,'06/15/2025 13:16:56')
+    ('Activate',1,'06/15/2025 13:25:52'),
+	('Unsubscribe',1,'06/15/2025 13:25:52'),
+	('Pending Activation',1,'06/15/2025 13:25:52')
 
 GO
 
@@ -711,7 +711,7 @@ GO
 INSERT INTO EmailTemplate
 	([Status],[Description],[InsertDate],[TemplateBody],[Subject],[IsActive])
 VALUES
-    ('Failed','Failed','06/15/2025 13:16:56', '
+    ('Failed','Failed','06/15/2025 13:25:52', '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
 <html xmlns="http://www.w3.org/1999/xhtml">
    <head>
@@ -773,7 +773,7 @@ VALUES
       </center>
    </body>
 </html>','Failed',1),
-	('PendingActivation','Pending Activation','06/15/2025 13:16:56', '
+	('PendingActivation','Pending Activation','06/15/2025 13:25:52', '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
 <html xmlns="http://www.w3.org/1999/xhtml">
    <head>
@@ -836,7 +836,7 @@ VALUES
    </body>
 </html>
 ','Pending Activation',1),
-	('Subscribed','Subscribed','06/15/2025 13:16:56', '
+	('Subscribed','Subscribed','06/15/2025 13:25:52', '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
 <html xmlns="http://www.w3.org/1999/xhtml">
    <head>
@@ -899,7 +899,7 @@ VALUES
    </body>
 </html>
 ','Subscribed',1),
-	('Unsubscribed','Unsubscribed','06/15/2025 13:16:56', '
+	('Unsubscribed','Unsubscribed','06/15/2025 13:25:52', '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
 <html xmlns="http://www.w3.org/1999/xhtml">
    <head>
