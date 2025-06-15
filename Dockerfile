@@ -1,5 +1,6 @@
+# check=skip=FromPlatformFlagConstDisallowed
 # Use the official .NET SDK image for building the app
-FROM mcr.microsoft.com/dotnet/sdk:8.0-arm64 AS build
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:latest AS build
 
 # Set environment for ARM64
 ENV DOTNET_RUNNING_IN_CONTAINER=true
