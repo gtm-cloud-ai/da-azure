@@ -1,2 +1,10 @@
 /stg
 /out
+/terraform/.terraform*
+/terraform/terraform.tfstate
+/terraform/terraform.tfstate.backup
+/terraform/terraform.tfvars
+/terraform/terraform.tfvars.json
+/terraform/override.tf
+/terraform/override.tf.json
+/terraform/local-k8s-config
