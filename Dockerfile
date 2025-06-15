@@ -1,5 +1,5 @@
 # Use the official .NET SDK image for building the app
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Set environment for ARM64
 ENV DOTNET_RUNNING_IN_CONTAINER=true
@@ -20,7 +20,7 @@ COPY . ./
 RUN dotnet ef migrations script -o sql/install.sql
 
 # Final stage with Azure SQL Edge (ARM64 compatible)
-FROM --platform=linux/arm64 mcr.microsoft.com/azure-sql-edge:latest
+FROM mcr.microsoft.com/azure-sql-edge:latest
 
 # SQL Server configuration
 ENV ACCEPT_EULA=Y
