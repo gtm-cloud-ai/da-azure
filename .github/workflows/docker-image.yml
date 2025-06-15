@@ -66,7 +66,7 @@ jobs:
           dotnet tool restore
 
       - name: Build the Docker image
-        run: docker buildx build --platform linux/arm64 . --file Dockerfile --tag fthornton67/gtm-cloud-saas-db:latest --build-arg MSSQL_SA_PASSWORD=YourStrong_9assword!
+        run: docker build . --file Dockerfile --tag fthornton67/gtm-cloud-saas-db:latest --build-arg MSSQL_SA_PASSWORD=YourStrong_9assword!
 
       - name: Log in to container registry
         run: docker login -u fthornton67 -p ${{ secrets.DOCKER_ACCESS_TOKEN }}
