@@ -19,7 +19,6 @@ FROM mcr.microsoft.com/mssql/rhel/server:latest
 
 # SQL Server configuration
 ENV ACCEPT_EULA=Y
-ENV MSSQL_SA_PASSWORD=mssql_2025
 ENV MSSQL_PID=Developer
 
 WORKDIR /app
