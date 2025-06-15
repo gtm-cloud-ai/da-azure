@@ -15,7 +15,7 @@ COPY . ./
 RUN dotnet ef migrations script -o sql/install.sql
 
 # Build database image
-FROM mcr.microsoft.com/azure-sql-edge:latest
+FROM mcr.microsoft.com/mssql/rhel/server:latest
 
 # SQL Server configuration
 ENV ACCEPT_EULA=Y
