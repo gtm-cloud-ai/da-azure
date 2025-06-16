@@ -46,6 +46,10 @@ resource "kind_cluster" "default" {
                 container_port = 30081
                 host_port     = 8081  # Keycloak port
             }
+            extra_port_mappings {
+                container_port = 30433
+                host_port     = 1433  # SQL Server port
+            }
         }
 
         node {
@@ -64,6 +68,13 @@ resource "kubernetes_namespace" "keycloak" {
 resource "kubernetes_namespace" "jenkins" {
     metadata {
         name = "jenkins"
+    }
+    depends_on = [kind_cluster.default]
+}
+
+resource "kubernetes_namespace" "saas-platform" {
+    metadata {
+        name = "saas-platform"
     }
     depends_on = [kind_cluster.default]
 }
@@ -136,10 +147,127 @@ resource "null_resource" "keycloak_post_install" {
             sleep 30
 
             # Convert Excel to JSON
-            python3 ../scripts/convert_users.py ../data/test_users.xlsx
+            #python3 ../scripts/convert_users.py ../data/test_users.xlsx
 
             # Import users
-            ../scripts/import_users.sh
+            #../scripts/import_users.sh
         EOT
     }
 }
+
+resource "kubernetes_deployment" "sqlserver" {
+  metadata {
+    name      = "sqlserver"
+    namespace = kubernetes_namespace.saas-platform.metadata[0].name
+    labels = {
+      app = "sqlserver"
+    }
+  }
+
+  spec {
+    replicas = 1
+
+    selector {
+      match_labels = {
+        app = "sqlserver"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "sqlserver"
+        }
+      }
+
+      spec {
+        container {
+          image = "fthornton67/gtm-cloud-saas-db:latest"
+          name  = "sqlserver"
+
+          env {
+            name  = "ACCEPT_EULA"
+            value = "Y"
+          }
+
+          env {
+            name  = "MSSQL_SA_PASSWORD"
+            value = "mssql_2025"
+          }
+
+          port {
+            container_port = 1433
+          }
+
+          resources {
+            limits = {
+              cpu    = "2"
+              memory = "4Gi"
+            }
+            requests = {
+              cpu    = "1"
+              memory = "2Gi"
+            }
+          }
+        }
+      }
+    }
+  }
+
+  depends_on = [kubernetes_namespace.saas-platform]
+}
+
+resource "kubernetes_service" "sqlserver" {
+    metadata {
+        name      = "sqlserver"
+        namespace = kubernetes_namespace.saas-platform.metadata[0].name
+    }
+
+    spec {
+        type = "NodePort"
+        port {
+            port        = 1433
+            target_port = 1433
+            node_port   = 30433  # This must match the container_port in kind_cluster config
+        }
+
+        selector = {
+            app = "sqlserver"
+        }
+    }
+
+    depends_on = [kubernetes_deployment.sqlserver]
+}
+
+/*
+# PersistentVolumeClaim (PVC) for SQL Server data storage
+# - Requests 10GB of storage space
+# - Uses ReadWriteOnce access mode (can be mounted as read-write by a single node)
+# - Links to standard storage class
+# - Matches labels with sqlserver deployment
+# - Depends on saas-platform namespace creation
+resource "kubernetes_persistent_volume_claim" "sqlserver" {
+  metadata {
+    name      = "sqlserver-data"
+    namespace = kubernetes_namespace.saas-platform.metadata[0].name
+  }
+
+  spec {
+    access_modes = ["ReadWriteOnce"]
+    storage_class_name = "standard"
+    volume_name = "sqlserver-data"
+    selector {
+      match_labels = {
+        app = "sqlserver"
+      }
+    }
+    resources {
+      requests = {
+        storage = "10Gi"
+      }
+    }
+  }
+
+  depends_on = [kubernetes_namespace.saas-platform]
+}
+*/

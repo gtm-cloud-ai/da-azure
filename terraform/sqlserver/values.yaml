@@ -1,0 +1,43 @@
+image:
+  repository: fthornton67/gtm-cloud-saas-db
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: 1433
+  nodePort: 30433
+
+environment:
+  - name: ACCEPT_EULA
+    value: "Y"
+  - name: MSSQL_PID
+    value: "Developer"
+  - name: MSSQL_SA_PASSWORD
+    value: "mssql_2025"
+
+resources:
+  limits:
+    cpu: "2"
+    memory: "4Gi"
+  requests:
+    cpu: "1"
+    memory: "2Gi"
+
+persistence:
+  enabled: true
+  storageClass: "standard"
+  accessModes:
+    - ReadWriteOnce
+  volumeClaimTemplate:
+    metadata:
+      name: mssql-data
+    spec:
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: "standard"
+      accessModes:
+        - ReadWriteOnce
+      volumeName: mssql-data
+  size: 10Gi
